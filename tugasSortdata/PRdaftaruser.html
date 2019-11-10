@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>daftar user</title>
+    <style>
+        tr,td,table{
+            border: 1px solid;
+            border-collapse: collapse;
+            padding: 15px;
+            
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Daftar User</h1>
+            <table>
+                <tr>
+                    <td>
+                       <input class='tambah' type='text' placeholder="nama"><br><br>
+                       <input class='tambah' type='number' placeholder='umur'><br><br>
+                       <b>kelamin:</b> <input name='sex' type='radio' ><b>pria</b> <input name='sex' type='radio'> <b>wanita</b><br><br>
+                       <input class='tambah' type='text' placeholder='pekerjaan'><br><br>
+                       <button onclick='kliktambah()'>submit</button><br><br>
+                        <center><b>sort berdasarkan</b></center><br>
+                        <button onclick='sortnama()'>Nama</button>
+                        <button onclick='sortumur()'>Umur</button>
+                        <button onclick='sortkelamin()'>Gender</button>
+                        <button onclick='sortpekerjaan()'>Pekerjaan</button>
+                    </td>
+                </tr>
+            </table><br>
+            <h2></h2>
+            <table>
+
+            </table>
+        <h5></h5>
+    </center>
+</body>
+<script>
+class daftar{
+    constructor(a,b,c,d){
+        this.nama=a,
+        this.umur=b,
+        this.sex=c,
+        this.pekerjaan=d
+    }
+}
+var listuser=[]
+
+printdata=(a)=>{
+    var htable=`<tr bgcolor='brown'>
+                    <td>No</td>
+                    <td>Nama</td>
+                    <td>Umur</td>
+                    <td>Jenis Kelamin</td>
+                    <td>Pekerjaan</td>
+                </tr>`
+    var output=''
+    a.forEach((value,i) => {
+        output+=`<tr>
+                    <td>${i+1}</td>
+                    <td>${value.nama}</td>
+                    <td>${value.umur}</td>
+                    <td>${value.sex}</td>
+                    <td>${value.pekerjaan}</td>
+                </tr>`
+    });
+    document.getElementsByTagName('table')[1].innerHTML=htable+output
+}
+kliktambah=()=>{
+    var x= document.getElementsByTagName('h2')[0].innerHTML='List User Terdaftar'
+    var input= document.getElementsByClassName('tambah')
+    var input2=''
+    if(document.getElementsByName('sex')[0].checked){
+        input2='Pria'
+    }else if(document.getElementsByName('sex')[1].checked){
+        input2='Wanita'
+    }   
+    if(input&&input2){
+        var namabaru=input[0].value
+        var umurbaru=input[1].value
+        var genderbaru=input2
+        var kerjabaru=input[2].value
+        listuser.push(new daftar(namabaru,umurbaru,genderbaru,kerjabaru))
+        document.getElementsByClassName('tambah')[0].value=''
+        document.getElementsByClassName('tambah')[1].value=''
+        document.getElementsByClassName('tambah')[2].value=''
+        document.getElementsByName('sex')[0].checked=false
+        document.getElementsByName('sex')[1].checked=false
+        document.getElementsByTagName('h5')[0].innerHTML=''
+        printdata(listuser)
+    }else{
+        document.getElementsByClassName('tambah')[0].value=''
+        document.getElementsByClassName('tambah')[1].value=''
+        document.getElementsByClassName('tambah')[2].value=''
+        document.getElementsByName('sex')[0].checked=false
+        document.getElementsByName('sex')[1].checked=false
+        document.getElementsByTagName('h5')[0].innerHTML='anda belum mengisi semua'
+    }
+}
+sortnama=()=>{
+    listuser.sort((a,b)=>{
+        if(a.nama>b.nama) return 1;
+        if(a.nama<b.nama) return -1;
+    });
+    printdata(listuser)
+}
+sortumur=()=>{
+    listuser.sort((a,b)=>{
+        if(a.umur>b.umur) return 1;
+        if(a.umur<b.umur) return -1;
+    });
+    printdata(listuser)
+}
+sortkelamin=()=>{
+    listuser.sort((a,b)=>{
+        if(a.sex>b.sex) return 1;
+        if(a.sex<b.sex) return -1;
+    });
+    printdata(listuser)
+
+}
+sortpekerjaan=()=>{
+    listuser.sort((a,b)=>{
+        if(a.pekerjaan>b.pekerjaan) return 1;
+        if(a.pekerjaan<b.pekerjaan) return -1;
+    });
+    printdata(listuser)
+
+}
+
+
+
+
+
+
+
+
+</script>
+</html>
